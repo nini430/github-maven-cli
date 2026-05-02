@@ -37,4 +37,17 @@ jobs:
         with:
           name: artifact-data
           path: target/*.jar
+  deploy:
+      needs: build
+      name: take the artifact
+      runs-on: ubuntu-latest
+      steps:
+        - name: taking artifacts from build job
+          uses: actions/download-artifact@v7
+          with:
+            name: artifact-data
+        - name: list my artifacts
+          run: ls
+
+
 
