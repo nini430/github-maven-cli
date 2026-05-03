@@ -20,6 +20,8 @@ jobs:
         run: mvn test
   build:
     needs: test
+    outputs:
+      artifact_data: ${{ steps.artifact-name.outputs.artifact_data }}
     name: Run build for maven
     runs-on: ubuntu-latest
     steps:
@@ -37,6 +39,9 @@ jobs:
         with:
           name: artifact-data
           path: target/*.jar
+      - name: get the artifact name
+        id: artifact-name
+        run: find target/*.jar -type f -execdir echo 'artifact_data={}' >> $GITHUB_OUTPUT ';'
   deploy:
       needs: build
       name: take the artifact
