@@ -53,6 +53,8 @@ jobs:
             name: artifact-data
         - name: list my artifacts
           run: ls
+        - name: getting arifact file name
+          run: echo ${{needs.build.outputs.artifact_data}}
 
 
 
